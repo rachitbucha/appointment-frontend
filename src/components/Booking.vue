@@ -37,11 +37,11 @@ const fetchSlots = async (date?: ComputedRef | null) => {
   try {
     const localDate = new Date(date?.value || new Date());
 
-    const timestampInTimezone = moment(localDate).tz('America/Los_Angeles').valueOf();
+    const timestampInTimezone = moment(localDate).tz(timezone.value).valueOf();
 
-    const response = await getFreeSlots(timestampInTimezone, 'America/Los_Angeles');
+    const response = await getFreeSlots(timestampInTimezone, timezone.value);
 
-    timeSlots.value = response.data.map((slot: string) => formatTo12HourTime(slot, 'America/Los_Angeles'));
+    timeSlots.value = response.data.map((slot: string) => formatTo12HourTime(slot, timezone.value));
   } catch (error) {
     console.error('Failed to load time slots:', error);
   }
